@@ -1,1 +1,1 @@
-# Bot-Legend-Slime
+# BotLegendSlime
