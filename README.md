@@ -3,49 +3,48 @@
 Questo progetto contiene un bot automatizzato scritto in **Python** per il gioco mobile [Legend of Slime](https://play.google.com/store/apps/details?id=com.loadcomplete.slimeidle).  
 Utilizza **ADB** per controllare un dispositivo Android da remoto, e **OpenCV** + **Tesseract OCR** per il riconoscimento visivo degli elementi a schermo.
 
+⚠️ **Il progetto è pensato per essere eseguito in ambiente Linux o all’interno di WSL (Windows Subsystem for Linux)**.  
+Non è garantito il funzionamento nativo su Windows senza WSL.
 
 
 ## 🧠 Funzionalità
 
-- Riconoscimento dei bottoni di gioco via immagine (template matching)
-- Tap automatici sui punti corretti dello schermo
-- Modalità "intelligente" con controllo errori
-- Logging base e facile estendibilità
-- Progetto organizzato in virtual environment e mantenuto via GitHub
+- Riconoscimento visivo dei bottoni di gioco (template matching)
+- Tap automatici sui punti corretti dello schermo via `adb`
+- Modalità "intelligente" con gestione degli errori
+- Logging base ed estendibilità semplice
+- Organizzazione pulita in virtual environment e repository Git
 
 
 
 ## 🛠️ Requisiti
 
-- Python 3.8+
+- Sistema operativo **Linux** o **WSL**
+- Python 3.8 o superiore
 - `adb` (Android Debug Bridge)
 - `tesseract-ocr`
-- Dispositivo Android **collegato via ADB (cavo o rete)**
+- Dispositivo Android o emulatore collegato via ADB (USB o rete)
 
 
 ## 📂 Struttura del progetto
 
-Il progetto è organizzato nei seguenti file e cartelle principali:
-
 - **`bot.py`**  
-  Script principale: contiene la logica che controlla il gioco eseguendo tap, analizzando lo schermo, e coordinando le azioni.
+  Script principale: esegue tap, analizza lo schermo, prende decisioni.
 
 - **`utils.py`**  
-  Modulo di supporto: raccoglie funzioni riutilizzabili come l’acquisizione dello schermo (`adb screencap`) e il tocco virtuale (`adb input tap`).
+  Funzioni di supporto: screenshot, OCR, input touch, ecc.
 
 - **`templates/`**  
-  Cartella con immagini di riferimento (template) da usare per riconoscere visivamente elementi dell'interfaccia del gioco.  
-  Esempio: `attack_button.png`
+  Cartella con immagini di riferimento (es. `attack_button.png`) per il riconoscimento tramite OpenCV.
 
 - **`requirements.txt`**  
-  Elenco delle librerie Python necessarie per eseguire il bot. Può essere installato con `pip install -r requirements.txt`.
+  Dipendenze Python installabili via `pip install -r requirements.txt`.
 
 - **`.gitignore`**  
-  File che indica a Git quali file e cartelle ignorare (es. `venv/`, file temporanei, immagini di test, ecc.).
+  File per ignorare cartelle locali (`venv/`, file temporanei, ecc.).
 
 - **`README.md`**  
-  Documentazione completa del progetto, con istruzioni per l’installazione, utilizzo e contributi.
-
+  Questa documentazione.
 
 
 ## 🚀 Setup iniziale
@@ -61,17 +60,23 @@ cd Bot-Legend-Slime
    
 ```bash
 python3 -m venv venv
-source .\venv\Scripts\activate 
+source venv/bin/activate
 ```
 
-3. **Installa le dipendenze:**
+3. **Installa le dipendenze Python:**
 
 ```bash
 pip install -r requirements.txt
+```
+
+4. **Installa i tool di sistema richiesti (solo Linux/WSL):**
+
+```bash
+sudo apt update
 sudo apt install adb tesseract-ocr -y
 ```
 
-4. **Verifica il collegamento ADB:**
+5. **Verifica il collegamento ADB:**
 
 ```bash
 adb devices
